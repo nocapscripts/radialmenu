@@ -28,7 +28,7 @@ end)
 
 -- [ Events ] --
 
-RegisterNetEvent('mercy-ui/client/ui-reset', function()
+RegisterNetEvent('client:ui-reset', function()
     if ShowMenu then
         ShowMenu = false
         SetNuiFocus(false, false)
