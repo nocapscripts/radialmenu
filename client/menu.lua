@@ -6,21 +6,21 @@ local ClickedAction = false
 
 
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+RegisterNetEvent(Config.Load, function()
     Citizen.SetTimeout(1000, function()
-        PlayerData = QBCore.Functions.GetPlayerData()
+        PlayerData = Core.Functions.GetPlayerData()
         ShowMenu = true
    end)
 end)
 
-RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
+RegisterNetEvent(Config.Unload, function()
     ShowMenu = false
     ClickedAction = false
     MaxMenuItems = {}
     PlayerData = {}
 end)
 
-RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobData)
+RegisterNetEvent(Config.JobUpdate, function(JobData)
 	PlayerData.job = JobData
 end)
 

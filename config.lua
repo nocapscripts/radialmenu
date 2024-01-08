@@ -22,7 +22,14 @@ local PlayerJob = {}
 
 Config = Config or {}
 
-Config.frame = "qb-core"
+--SETTINGS
+Config.frame = "rs_base"
+
+Config.Load = "NPX:Client:OnPlayerLoaded"
+
+Config.Unload = "NPX:Client:OnPlayerUnload"
+
+Config.JobUpdate = "NPX:Client:OnJobUpdate"
 
 local Core = exports[Config.frame]:GetCoreObject()
 local PlayerData = Core.Functions.GetPlayerData()
@@ -33,18 +40,18 @@ AddEventHandler('onResourceStart', function(resource)
     onDuty = PlayerJob.onduty
 end)
 
-AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+AddEventHandler(Config.Load, function()
     PlayerData = Core.Functions.GetPlayerData()
     PlayerJob = PlayerData.job
     onDuty = PlayerJob.onduty
 end)
 
-RegisterNetEvent('QBCore:Client:OnJobUpdate', function(job)
+RegisterNetEvent(Config.JobUpdate, function(job)
     PlayerJob = job
 end)
 
-RegisterNetEvent('QBCore:Client:SetDuty')
-AddEventHandler('QBCore:Client:SetDuty', function(duty)
+RegisterNetEvent('NPX:Client:SetDuty')
+AddEventHandler('NPX:Client:SetDuty', function(duty)
     onDuty = duty
 end)
 
@@ -732,8 +739,8 @@ AddEventHandler("isHayesOff", function()
     isHayes = false
 end)
 
-RegisterNetEvent("QBCore:Client:OnJobUpdate") -- dont edit this unless you don't use rs_base
-AddEventHandler("QBCore:Client:OnJobUpdate", function(jobInfo)
+RegisterNetEvent("NPX:Client:OnJobUpdate") -- dont edit this unless you don't use rs_base
+AddEventHandler("NPX:Client:OnJobUpdate", function(jobInfo)
     myJob = jobInfo.name
     if isMedic and myJob ~= "ambulance" then isMedic = false end
     if isRealestate and myJob ~= "realestate" then isRealestate = false end
@@ -751,8 +758,8 @@ AddEventHandler("QBCore:Client:OnJobUpdate", function(jobInfo)
     if myJob == "realestate" then isRealestate = true end
 end)
 
-RegisterNetEvent('QBCore:Client:SetDuty') -- dont edit this unless you don't use rs_base
-AddEventHandler('QBCore:Client:SetDuty', function(duty)
+RegisterNetEvent('NPX:Client:SetDuty') -- dont edit this unless you don't use rs_base
+AddEventHandler('NPX:Client:SetDuty', function(duty)
     myJob = Core.Functions.GetPlayerData().job.name
     if isMedic and myJob ~= "ambulance" then isMedic = false end
     if isRealestate and myJob ~= "realestate" then isRealestate = false end
